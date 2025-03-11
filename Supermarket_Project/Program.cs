@@ -33,11 +33,9 @@ public class Product
     public string Manufacturer { get; set; }
 }
 
-public class Food
+// клас продукт харчування є похідним від Товару, отже він має всі властивості товару
+public class Food : Product
 {
-    public string Name { get; set; }
-    public string Category { get; set; }
-    public double Price { get; set; }
-    public int Quantity { get; set; }
-    public string Manufacturer { get; set; }
+    public string ExpirationDate { get; set; }
+    public string Ingredients { get; set; }
 }
