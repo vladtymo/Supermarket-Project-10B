@@ -22,3 +22,22 @@ Console.WriteLine("\t3. Load from file");
 Console.WriteLine("\t4. Show all products");
 Console.WriteLine("\t5. Delete product");
 Console.WriteLine("\t6. Sell product");
+
+
+public class Product
+{
+    public string Name { get; set; }
+    public string Category { get; set; }
+    public double Price { get; set; }
+    public int Quantity { get; set; }
+    public string Manufacturer { get; set; }
+}
+
+public class Food
+{
+    public string Name { get; set; }
+    public string Category { get; set; }
+    public double Price { get; set; }
+    public int Quantity { get; set; }
+    public string Manufacturer { get; set; }
+}
