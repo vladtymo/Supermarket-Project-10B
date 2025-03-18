@@ -23,7 +23,37 @@ Console.WriteLine("\t4. Show all products");
 Console.WriteLine("\t5. Delete product");
 Console.WriteLine("\t6. Sell product");
 
+Product product = new();
 
+while (true)
+{
+    Console.Write("Your choice: ");
+    int choice = Convert.ToInt32(Console.ReadLine());
+    
+    switch (choice)
+    {
+        case 1:
+            Console.Write("Enter product name: ");
+            product.Name = Console.ReadLine();
+            Console.Write("Enter product category: ");
+            product.Category = Console.ReadLine();
+            Console.Write("Enter product price: ");
+            product.Price = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Enter product quantity: ");
+            product.Quantity = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Enter product manufacture: ");
+            product.Manufacturer = Console.ReadLine();
+            break;
+        case 4:
+            Console.WriteLine("------- Product ---------");
+            Console.WriteLine($"Name: {product.Name}");
+            Console.WriteLine($"Category: {product.Category}");
+            Console.WriteLine($"Price: {product.Price}");
+            Console.WriteLine($"Quantity: {product.Quantity}");
+            Console.WriteLine($"Manufacturer: {product.Manufacturer}");
+            break;
+    }
+}
 public class Product
 {
     public string Name { get; set; }
