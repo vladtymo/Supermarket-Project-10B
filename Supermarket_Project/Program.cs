@@ -12,6 +12,8 @@
     - Продаж товару(з видачею чеку)
 */
 
+using System.Text.Json;
+
 Console.OutputEncoding = System.Text.Encoding.UTF8; // для укр. мови
 Console.WriteLine("---------- Welcome to Supermarket ----------");
 
@@ -23,7 +25,7 @@ Console.WriteLine("\t4. Show all products");
 Console.WriteLine("\t5. Delete product");
 Console.WriteLine("\t6. Sell product");
 
-Product product = new();
+List<Product> products = new();
 
 while (true)
 {
@@ -33,24 +35,40 @@ while (true)
     switch (choice)
     {
         case 1:
+            var newItem = new Product();
+            
             Console.Write("Enter product name: ");
-            product.Name = Console.ReadLine();
+            newItem.Name = Console.ReadLine();
             Console.Write("Enter product category: ");
-            product.Category = Console.ReadLine();
+            newItem.Category = Console.ReadLine();
             Console.Write("Enter product price: ");
-            product.Price = Convert.ToDouble(Console.ReadLine());
+            newItem.Price = Convert.ToDouble(Console.ReadLine());
             Console.Write("Enter product quantity: ");
-            product.Quantity = Convert.ToInt32(Console.ReadLine());
+            newItem.Quantity = Convert.ToInt32(Console.ReadLine());
             Console.Write("Enter product manufacture: ");
-            product.Manufacturer = Console.ReadLine();
+            newItem.Manufacturer = Console.ReadLine();
+            
+            products.Add(newItem);
+            break;
+        case 2:
+            string jsonToSave = JsonSerializer.Serialize(products);
+            Console.WriteLine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+            File.WriteAllText($"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/products_db.json", jsonToSave);
+            break;
+        case 3:
+            string jsonToLoad = File.ReadAllText($"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/products_db.json");
+            products = JsonSerializer.Deserialize<List<Product>>(jsonToLoad);
             break;
         case 4:
-            Console.WriteLine("------- Product ---------");
-            Console.WriteLine($"Name: {product.Name}");
-            Console.WriteLine($"Category: {product.Category}");
-            Console.WriteLine($"Price: {product.Price}");
-            Console.WriteLine($"Quantity: {product.Quantity}");
-            Console.WriteLine($"Manufacturer: {product.Manufacturer}");
+            foreach (var item in products)
+            {
+                Console.WriteLine("------- Product ---------");
+                Console.WriteLine($"Name: {item.Name}");
+                Console.WriteLine($"Category: {item.Category}");
+                Console.WriteLine($"Price: {item.Price}");
+                Console.WriteLine($"Quantity: {item.Quantity}");
+                Console.WriteLine($"Manufacturer: {item.Manufacturer}");
+            }
             break;
     }
 }
