@@ -24,7 +24,9 @@ Console.WriteLine("\t2. Save to file");
 Console.WriteLine("\t3. Load from file");
 Console.WriteLine("\t4. Show all products");
 Console.WriteLine("\t5. Delete product");
-Console.WriteLine("\t6. Sell product");
+Console.WriteLine("\t6. Find product by id");
+Console.WriteLine("\t7. Find product by name");
+Console.WriteLine("\t8. Sell product");
 
 List<Product> products = new();
 
@@ -65,12 +67,7 @@ while (true)
         case 4:
             foreach (var item in products)
             {
-                Console.WriteLine("------- Product ---------");
-                Console.WriteLine($"Name: {item.Name}");
-                Console.WriteLine($"Category: {item.Category}");
-                Console.WriteLine($"Price: {item.Price}");
-                Console.WriteLine($"Quantity: {item.Quantity}");
-                Console.WriteLine($"Manufacturer: {item.Manufacturer}");
+                item.Show();
             }
             break;
         case 5:
@@ -89,6 +86,36 @@ while (true)
             products.RemoveAt(numToDelete);
             Console.WriteLine("Product deleted successfully!");
             break;
+        case 6:
+            for (int i = 0; i < products.Count; ++i)
+                Console.WriteLine($"[{i}] Product: " + products[i].Name);
+
+            Console.Write("Enter number to show: ");
+            int numToShow = Convert.ToInt32(Console.ReadLine());
+
+            if (numToShow < 0 || numToShow >= products.Count)
+            {
+                Console.WriteLine("Number out of range!");
+                break;
+            }
+            var itemToShow = products[numToShow];
+            
+            itemToShow.Show();
+            break;
+        case 7:
+            Console.Write("Enter product name to find: ");
+            string nameToFind = Console.ReadLine().Trim();
+            
+            var foundItem = products.Find(x => x.Name.Contains(nameToFind));
+
+            if (foundItem == null)
+            {
+                Console.WriteLine("Product not found!");
+                break;
+            }
+            
+            foundItem.Show();
+            break;
     }
 }
 public class Product
@@ -98,6 +125,16 @@ public class Product
     public double Price { get; set; }
     public int Quantity { get; set; }
     public string Manufacturer { get; set; }
+
+    public void Show()
+    {
+        Console.WriteLine("------- Product ---------");
+        Console.WriteLine($"Name: {this.Name}");
+        Console.WriteLine($"Category: {this.Category}");
+        Console.WriteLine($"Price: {this.Price}");
+        Console.WriteLine($"Quantity: {this.Quantity}");
+        Console.WriteLine($"Manufacturer: {this.Manufacturer}");
+    }
 }
 
 // клас продукт харчування є похідним від Товару, отже він має всі властивості товару
