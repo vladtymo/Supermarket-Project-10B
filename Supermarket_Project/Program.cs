@@ -18,6 +18,7 @@ Console.OutputEncoding = System.Text.Encoding.UTF8; // для укр. мови
 Console.WriteLine("---------- Welcome to Supermarket ----------");
 
 Console.WriteLine("\tMENU:");
+Console.WriteLine("\t0. Exit");
 Console.WriteLine("\t1. Add new product");
 Console.WriteLine("\t2. Save to file");
 Console.WriteLine("\t3. Load from file");
@@ -34,6 +35,9 @@ while (true)
     
     switch (choice)
     {
+        case 0:
+            Environment.Exit(0);
+            break;
         case 1:
             var newItem = new Product();
             
@@ -52,7 +56,6 @@ while (true)
             break;
         case 2:
             string jsonToSave = JsonSerializer.Serialize(products);
-            Console.WriteLine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
             File.WriteAllText($"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}/products_db.json", jsonToSave);
             break;
         case 3:
@@ -69,6 +72,22 @@ while (true)
                 Console.WriteLine($"Quantity: {item.Quantity}");
                 Console.WriteLine($"Manufacturer: {item.Manufacturer}");
             }
+            break;
+        case 5:
+            for (int i = 0; i < products.Count; ++i)
+                Console.WriteLine($"[{i}] Product: " + products[i].Name);
+
+            Console.Write("Enter number to delete: ");
+            int numToDelete = Convert.ToInt32(Console.ReadLine());
+
+            if (numToDelete < 0 || numToDelete >= products.Count)
+            {
+                Console.WriteLine("Number out of range!");
+                break;
+            }
+            
+            products.RemoveAt(numToDelete);
+            Console.WriteLine("Product deleted successfully!");
             break;
     }
 }
