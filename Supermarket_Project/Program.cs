@@ -13,6 +13,7 @@
 */
 
 using System.Text.Json;
+using Supermarket_Project;
 
 Console.OutputEncoding = System.Text.Encoding.UTF8; // для укр. мови
 Console.WriteLine("---------- Welcome to Supermarket ----------");
@@ -28,7 +29,7 @@ Console.WriteLine("\t6. Find product by id");
 Console.WriteLine("\t7. Find product by name");
 Console.WriteLine("\t8. Sell product");
 
-
+Supermarket supermarket = new();
 
 while (true)
 {
@@ -41,25 +42,25 @@ while (true)
             Environment.Exit(0);
             break;
         case 1:
-           
+            supermarket.AddProduct();
             break;
         case 2:
-            
+            supermarket.SaveToFile();
             break;
         case 3:
-            
+            supermarket.LoadFromFile();
             break;
         case 4:
-            
+            supermarket.ShowAllProducts();
             break;
         case 5:
-            
+            supermarket.DeleteProduct();
             break;
         case 6:
-            
+            supermarket.ShowProductById();
             break;
         case 7:
-            
+            supermarket.ShowProductByName();
             break;
     }
 }
